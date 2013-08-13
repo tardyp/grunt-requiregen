@@ -1,4 +1,3 @@
-[![build status](https://secure.travis-ci.org/tardyp/grunt-requiregen.png)](http://travis-ci.org/tardyp/grunt-requiregen)
 # grunt-requiregen
 
 ## Contents
@@ -12,13 +11,12 @@
 
 ## What is grunt-requiregen?
 
-A grunt plugin which generates a requirejs main.js file, which ensures js files are loaded in the right order
+A grunt plugin which generates a RequireJS main.js file, which ensures js files are loaded in the right order
 
-Require.js is a nice tool which combines plugin loading capabilities, and main application minification for prod.
-Maintaining dependancies between all your modules is a bit cumbersome, especially if you are using angular.js and its dependancy
-injection system. This would require declaring your dependancies twice.
+Require.js is a nice tool which combines plugin loading capabilities and main application minification for prod.
+Maintaining dependencies between all of your modules is a bit cumbersome, especially if you are using AngularJS and its dependency injection system. This would require declaring your dependencies twice.
 
-Angularjs still does not resolves everything as it needs to be loaded first, and usually, you need a bootstrap code to be loaded last. There might be other needs, like jquery very first, app module before its services, etc.
+AngularJS still does not resolve everything as it needs to be loaded first, and usually, you need a bootstrap code to be loaded last. There might be other needs, like jQuery loaded first, app module before its services, etc.
 
 
 ## Installation
@@ -29,16 +27,16 @@ $ npm install grunt-requiregen
 
 ## Usage
 
-Include the following line in your Grunt file. (Here this is coffeescript version)
+Include the following line in your Grunt file. (Here is CoffeeScript version)
 
-```coffeescript
+```CoffeeScript
     grunt.loadNpmTasks('grunt-requiregen')
 ```
 
-```coffeecript
-    # task that generates main.js (the require.js main file)
-    # Angular is actually very nice with its dependancy injection system
-    # basically, we just need angular is loaded first,  app second and run last
+```CoffeeScript
+    # task that generates main.js (the RequireJS main file)
+    # AngularJS is actually very nice with its dependency injection system
+    # basically, we just need AngularJS to be loaded first, app second, and run last
     # we should not be modifying this config when the app is growing
     requiregen:
         main:
@@ -50,14 +48,14 @@ Include the following line in your Grunt file. (Here this is coffeescript versio
                 # order is a list of minimatch 'glob' like matching
                 # modules, requiregen will generate the correct shim
                 # to load modules in this order
-                # if a module has been loaded in previous layers, it wont be loaded again
+                # if a module has been loaded in previous layers, it won't be loaded again
                 # so that you can use a more generic minimatch expression in the end
                     'libs/jquery'
-                    'libs/angular' # angular needs jquery before or will use internal jqlite
-                    'libs/*'      # remaining libs before app
+                    'libs/angular' # AngularJS needs jQuery before or will use internal jqLite
+                    'libs/*'       # remaining libs before app
                     'app'          # app needs libs
-                    '{routes,views,config,*/**}'  # remaining angularjs components
-                    'run'     # run has to be in the end, because it is triggering angular's own DI
+                    '{routes,views,config,*/**}'  # remaining AngularJS components
+                    'run'          # run has to be in the end, because it is triggering angular's own DI
                 ]
             dest: '.temp/scripts/main.js'
 ```
