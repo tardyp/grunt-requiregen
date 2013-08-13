@@ -6,17 +6,17 @@ module.exports = (grunt) ->
                     define: false
         for group in @files
             order = options.order # list of minimatch matching each layer
-            layers = []          # the list of list of modules, ordered by load time
-            choosen_modules = {} # remember which modules were already choosen
+            layers = []           # the list of list of modules, ordered by load time
+            chosen_modules = {}   # remember which modules were already chosen
             for rule in order
                 modules = []
                 matcher = grunt.file.minimatch.makeRe(rule)
                 for s in group.src
                     s = s.toString().slice(0, -3) # remove ".js" from filename
-                    if choosen_modules.hasOwnProperty(s)
+                    if chosen_modules.hasOwnProperty(s)
                         continue
                     if matcher.test(s)
-                        choosen_modules[s] = 1
+                        chosen_modules[s] = 1
                         modules.push(s)
                 if modules.length > 0
                     layers.push modules
